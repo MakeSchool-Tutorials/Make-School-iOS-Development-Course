@@ -23,9 +23,73 @@ If you have python 3 installed, you should see a response that confirms the late
 	
 If python 3 is not installed you should install it via homebrew:
 
+	 brew update
 	 brew install python3
+	 
+##Installing & Running MongoDB
+
+Another prerequisite besides python 3 is MongoDB. **Whenever the flask server is running, you need to run a MongoDB instance as well.** Otherwise the server won't be able to access the DB and will throw an exception. 
+
+You can test if MongoDB is installed by starting an instance of the DB with the following terminal command:
+
+	mongod
+	
+If the DB starts up you can move on to the next step! Keep `mongod` running in the current terminal tab and open a new tab (CMD + T) in which you'll enter the terminal commands of the following steps.
+
+If the command isn't recognized, you need to install MongoDB via homebrew:
+
+	brew update
+	brew install mongodb
+	
+Once the install completes you need to start the DB with this command:
+
+	mongod
 	 
 ##Starter Project
 
 We will be using a bunch of libraries to speed up development. While you can configure your project from scratch, I'd recommend starting with the starter project that has all of the dependencies defined and comes with a basic skeleton for your first web service.
+
+Start by [downloading the starter project](https://github.com/MakeSchool/Flask-Starter-Project/archive/master.zip). Unzip the folder and navigate to the root folder of the project.
+
+###Creating and Activating a Virtual Environment
+
+When setting up a development environment developers need to install numerous different dependencies. Ideally the dependencies of one project on the system should not interfere with dependencies from other projects. Therefore most developers set up some sort of sandbox in which they configure our development environment. One such sandboxing mechanism for python is called [*virtualenv*](https://virtualenv.pypa.io/en/latest/). Virtualenv allows us to create an isolated environment in which we can install the `pip` dependencies for our project.
+
+Create a new virtual environment, in the root folder of the starter project, with the following command:
+
+	virtualenv -p python3 development
+	
+The `-p` flag lets us choose the default python version for this environment. We choose python 3. The last argument `development` is the name of the new environment we're creating.
+	
+Now you can activate the virtual environment with this command:
+
+	source development/bin/activate
+	
+You should see that your bash session is prefixed with the name of the virtual environment, e.g.:
+
+	(development)Benjamins-MacBook-Pro:Flask-Starter-Project-master benjaminencz$
+	
+You should test which version of python is used by default within this environment. If the setup worked correctly it should be python 3:
+
+	python --version
+	> Python 3.4.0
+	
+Now we've created and activated a virtual environment for our project. We're ready to install the dependencies.
+
+###Installing Project Dependencies
+
+There are two different ways to install dependencies with `pip`. You can provide the name of a dependency directly, or you can reference a file that stores the dependencies for a given project. For the starter project we provide a `requirements.txt` file that contains all the required dependencies for this project. You can install the dependencies with this command:
+
+	pip3 install -r requirements.txt
+	
+Make sure you're using `pip3` since we're working with python 3. Now, with an instance of MongoDB running and all requirements installed, you should be able to run the tests for the server successfully:
+
+	python tests.py
+	
+	> Ran 2 tests in 0.023s
+	>
+	> OK
+	
+This indicates that all tests passed successfully! Now we can dive into discussing the code that is provided with the starter project - after that you'll be ready to get started with developing your own web service.
+
 
