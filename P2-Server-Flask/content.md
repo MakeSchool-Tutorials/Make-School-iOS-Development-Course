@@ -78,7 +78,7 @@ Now we've created and activated a virtual environment for our project. We're rea
 
 ###Installing Project Dependencies
 
-There are two different ways to install dependencies with `pip`. You can provide the name of a dependency directly, or you can reference a file that stores the dependencies for a given project. For the starter project we provide a `requirements.txt` file that contains all the required dependencies for this project. You can install the dependencies with this command:
+There are two different ways to install dependencies with `pip`. You can provide the name of a dependency directly, or you can reference a file that stores the dependencies for a given project. For the starter project we provide a `requirements.txt` file that contains all the required dependencies for this project ([here you can read about `pip freeze`](https://pip.pypa.io/en/stable/reference/pip_freeze/)). You can install the dependencies with this command:
 
 	pip3 install -r requirements.txt
 	
@@ -92,4 +92,31 @@ Make sure you're using `pip3` since we're working with python 3. Now, with an in
 	
 This indicates that all tests passed successfully! Now we can dive into discussing the code that is provided with the starter project - after that you'll be ready to get started with developing your own web service.
 
+
+##The Starter Project Code
+
+Now we'll dive into the code that the starter project provides. Discussing the code should give you a lot of insight into writing RESTful webservices with flask. We'll start by discussing the `server.py` file.
+
+	from flask import Flask, request, make_response
+	from flask_restful import Resource, Api
+	from pymongo import MongoClient
+	from bson.objectid import ObjectId
+	from utils.mongo_json_encoder import JSONEncoder
+	
+	# Basic Setup
+	# 1
+	app = Flask(__name__)
+	# 2
+	mongo = MongoClient('localhost', 27017)
+	# 3
+	app.db = mongo.develop_database
+	# 4
+	api = Api(app)
+	
+The first few lines are mostly boilerplate. First we import all the dependencies that we use throughout the rest of the file. Then we perform the following steps to set up the flask app:
+
+1. We create a flask instance and assign it to the `app` variable
+2. We establish a connection to our MongoDB service that's running locally
+3. We specify a particular database (`develop_database`) which we'll use to store data. We assign it to `app.db`. Throughout the rest of `server.py` we'll access `app.db` whenever we need to communicate with the DB. 
+4. We create an instance of the `flask_restful` API. Later we'll add different endpoints to that API. The `flask_restful` library is not necessary for creating RESTful APIs, but it makes our lives a little easier by providing a specific format for defining endpoints for the different resources in our app.
 
