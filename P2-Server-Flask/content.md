@@ -213,9 +213,78 @@ The last part of the source file is the standard boilerplate code for starting a
 	    
 You can read more about the basic setup of flask server [here](http://flask.pocoo.org/docs/0.10/quickstart/). In addition to the basic setup we provide some configuration settings that will make debugging of this server easier.
 
+This concludes the entire code for our server - as you can see getting started with flask is pretty straightforward!
+
+Before it's your turn to create the Trip Planner backend, let's take a look at the tests that come with this starter project.
+
 ##Tests
 
+We highly recommend that you use automated tests to verify that your backend code works as expected. This is much faster than using some sort of tool to issue HTTP requests and manually checking the result. 
 
+To give you a good idea of how to start writing tests, we have provided a small testsuite along with this starter project. You can find it in `tests.py`.
+
+We will take a look at the setup code and at one test case - that should give you a good idea of how to design your own tests.
+
+###Setup code
+
+The code within the `setUp` method runs before every individual test in your test suite runs. If you have 4 tests, this piece of code will be executed before each of them. 
+
+The main use cases for a `setUp` method is preparing specific resources for a test and resetting state that might have been created by other tests. That way each tests runs on a clean slate.
+
+Let's take a look at our `setUp` method:
+
+	def setUp(self):
+	      self.app = server.app.test_client()
+	      # Run app in testing mode to retrieve exceptions and stack traces
+	      server.app.config['TESTING'] = True
+	
+	      # Inject test database into application
+	      mongo = MongoClient('localhost', 27017)
+	      db = mongo.test_database
+	      server.app.db = db
+	
+	      # Drop collection (significantly faster than dropping entire db)
+	      db.drop_collection('myobjects')
+	      
+There are a few different steps going on here. In the very first line we get a reference to our server application. That reference allows us to change certain apects of the app, e.g. which database it uses.
+
+In the next line we use that reference to change the configuration of the app to `'TESTING' = true`. This option means that we will see helpful debug information if our tests uncover issues when running the server.
+
+In the next step we inject a different database into the application. When writing automated tests, it is very important to ensure that each tests runs in isolation. It shouldn't be influenced by any tests that ran prior to it and it shouldn't influence any tests that will run after it. For our app that means that we need to reset the DB after every test - since each test will create/delete entries in the DB.
+
+We can only reset the DB if we have a reference to a DB connection. That's why we create a new DB connection in this `setUp` code and then tell the app to use that connection. 
+
+Lastly we call `db.drop_collection('myobjects')` on our test database. Remember that this line will run before every test case. This ensures that any objects that have been created by earlier tests are removed. It is also possible to delete the entire DB, not only a specific collection. However, this operation is fairly slow. In general we want our tests to run as fast as possible, so that we can run them often without getting blocked.
+
+When building tests for the Trip Planner app, remember that you need to drop all collections that you've been working with (e.g. trips, users, etc.).
+
+###Test Case Code
+
+We will discuss Unit Testing more extensively throughout this course, but by looking at one example test you will quickly be able to gather the most important aspects:
+
+	def test_getting_object(self):
+	      response = self.app.post('/myobject/', 
+	        data=json.dumps(dict(
+	          name="Another object"
+	        )), 
+	        content_type = 'application/json')
+	
+	      postResponseJSON = json.loads(response.data.decode())
+	      postedObjectID = postResponseJSON["_id"]
+	
+	      response = self.app.get('/myobject/'+postedObjectID)
+	      responseJSON = json.loads(response.data.decode())
+	
+	      self.assertEqual(response.status_code, 200)
+	      assert 'Another object' in responseJSON["name"]
+      
+Almost all tests can (or should be able to be) broken down into three steps:
+
+- **Arrange**: In this step you create the necessary environment for test, e.g. creating an object by calling the `post` endpoint.
+- **Act**: In this step you trigger the code under test by performing another action, e.g. triggering a `get` request to retrieve an object
+- **Assert**: In this last step you use assertions to verify that the result you retrieved is the expected result. In this case we expect the server to respond with a 200 status code (success) and we expect the object to have a name of *"Another Object"*
+
+Thinking of these three steps should be a helpful guide for writing your own tests. You can read [this post](http://flask.pocoo.org/docs/0.10/testing/) to learn more about the basics of writing tests for flask applications.
 
 ##Now it's your turn!
 
@@ -227,6 +296,8 @@ With this basic setup working it's now your turn to extend this server to suppor
 - Endpoint for retrieving a specific trip via its ID
 - Endpoint for retrieving all trips for a specific user
 
-We haven't discussed how user specific... will be part of 2nd lecture....
+In the Trip Planner app all trips should be user specific. This means that a user can only see/modify trips that they created themselves. Therefor we will need to implement an authorization and authentication system for our backend.
 
+We haven't discussed that aspect yet; so feel free to try implementing it, but don't worry if you feel lost.
 
+In the next lecture we will discuss these security topics and you will learn what's necessary for implementing user based authenication for your webservices.
