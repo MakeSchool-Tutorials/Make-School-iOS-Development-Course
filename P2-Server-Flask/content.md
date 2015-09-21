@@ -176,3 +176,57 @@ The `get` method for `MyObject` is a little bit simpler:
 8. If we can't find a document with the provided id we return a 404 status code. If we found a document we return it to the client.
 
 That's all the code that goes into implementing a very simple resource! For this application our server is just acting as a thin layer above the DB.
+
+###Adding Routes
+
+The next important aspect of the starter project code is the mapping between routes and resources. A route defines a URL that can be called by a client application. Our simple server only has one route, here's the code that defines it:
+
+	api.add_resource(MyObject, '/myobject/','/myobject/<string:myobject_id>')
+	
+The first parameter is the resource which we want ot map to a specific URL. Next, we have a collection of different URLs that map to that resource. For this application there are two different ways to call the *myobject* endpoint. The first one is */myobject/*, without a specific object id. This endpoint is used to create new instances. The second endpoint takes an object id, e.g. */myobject/2*. This endpoint is used to retrieve a specific object. 
+
+With this additional line of setup, our server will now know which server methods to call when a specific URL is requested by the client.
+
+###Additional Configuration
+
+We have two additional configuration blocks in this starter project that I would like to discuss briefly. The first one configures a custom JSON serializer for our flask app:
+
+	# provide a custom JSON serializer for flask_restful
+	@api.representation('application/json')
+	def output_json(data, code, headers=None):
+	    resp = make_response(JSONEncoder().encode(data), code)
+	    resp.headers.extend(headers or {})
+	    return resp
+
+A JSON Encoder takes python objects and turns them into a JSON text representation. For this application we need a custom serializer, because the default serializer does not know how to handle MongoDB's `ObjectID`s. A little earlier we discussed that an `ObjectID` is a specific type that is used to refer to a document in a MongoDB instance. This `ObjectID` isn't a string, so it cannot be serialized by Flask's default serializer.
+
+With the lines above we install our custom encoder for any response that has the MIME type *application/json* (Read more about custom encoders [here](http://flask.pocoo.org/snippets/119/)).
+
+The code for our custom encoder lives in this file of the starter project: `/utils/mongo_json_encoder.py` - take a look at the implementation if you're curious about the implementation!
+
+The last part of the source file is the standard boilerplate code for starting a flask server:
+
+	if __name__ == '__main__':
+	    # Turn this on in debug mode to get detailled information about request related exceptions: http://flask.pocoo.org/docs/0.10/config/
+	    app.config['TRAP_BAD_REQUEST_ERRORS'] = True
+	    app.run(debug=True)
+	    
+You can read more about the basic setup of flask server [here](http://flask.pocoo.org/docs/0.10/quickstart/). In addition to the basic setup we provide some configuration settings that will make debugging of this server easier.
+
+##Tests
+
+
+
+##Now it's your turn!
+
+With this basic setup working it's now your turn to extend this server to support all features that we need for our Trip Planner project:
+
+- Endpoint for creating a trip with waypoints
+- Endpoint for updating a trip with waypoints
+- Endpoint for deleting a trip with waypoints
+- Endpoint for retrieving a specific trip via its ID
+- Endpoint for retrieving all trips for a specific user
+
+We haven't discussed how user specific... will be part of 2nd lecture....
+
+
