@@ -1,5 +1,5 @@
 ---
-title: "Avanced Core Data"
+title: "Advanced Core Data"
 slug: advanced-core-data
 ---
 
