@@ -1,5 +1,5 @@
 ---
-title: "Layout with Stack View, Scoll View, Table View, and Collection View"
+title: "Layout with Stack-, Scoll-, Table-, and Collection View"
 slug: ios-stackview-scrollview-tableview-collectionview
 ---
 
