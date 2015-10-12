@@ -163,7 +163,7 @@ Below the setup code that we just discussed we're implementing our first resourc
 	      #2
 	      myobject_collection = app.db.myobjects
 	      #3
-	      result = myobject_collection.insert_one(request.json)
+	      result = myobject_collection.insert_one(new_myobject)
 		  #4
 	      myobject = myobject_collection.find_one({"_id": ObjectId(result.inserted_id)})
 		  #5
