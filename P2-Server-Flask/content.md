@@ -46,7 +46,11 @@ You can test if MongoDB is installed by starting an instance of the DB with the 
 
 	mongod
 	
-If the DB starts up you can move on to the next step! Keep `mongod` running in the current terminal tab and open a new tab (CMD + T) in which you'll enter the terminal commands of the following steps.
+Upon successful start you should see the following message:
+
+	[initandlisten] waiting for connections on port 27017
+	
+Now your database is running and waiting for connections! **Keep `mongod` running in the current terminal tab and open a new tab (CMD + T) in which you'll enter the terminal commands of the following steps.** This will keep the database running which is required for your flask server to work.
 
 If the command isn't recognized, you need to install MongoDB via homebrew:
 
@@ -109,7 +113,7 @@ There are two different ways to install dependencies with `pip`. You can provide
 	
 Make sure you're using `pip3` since we're working with python 3. Now, with an instance of MongoDB running and all requirements installed, you should be able to run the tests for the server successfully:
 
-	python tests.py
+	python3 tests.py
 	
 	> Ran 2 tests in 0.023s
 	>
