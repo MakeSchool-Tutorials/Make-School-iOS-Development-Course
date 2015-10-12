@@ -9,6 +9,10 @@ slug: server-flask
 
 [Download the slides here.](https://s3.amazonaws.com/mgwu-misc/MS-17/Slides/ServerFlask.pdf)
 
+#GitHub Classroom Assignment
+
+[Start the assignment by using this link.](https://classroom.github.com/assignment-invitations/cc2a161b4fb90279ae2620d13f22431c)
+
 #Getting Started
 
 Now that you have a basic understanding of how we will build the Trip Planner backend using flask, let's get started with the setup.
