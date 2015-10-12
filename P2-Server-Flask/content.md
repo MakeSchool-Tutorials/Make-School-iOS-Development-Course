@@ -51,9 +51,18 @@ Once the install completes you need to start the DB with this command:
 
 	mongod
 	 
-mongod may notice that you have not specified a database directory. By default it uses /data/db. Because this folder may be missing, mongod may output the following error when run: `Data directory /data/db not found., terminating` if this happens, create a database location for your user using the following command.
+`mongod` may notice that you have not specified a database directory. By default it uses /data/db. Because this folder may be missing, mongod may output the following error when run: 
+`Data directory /data/db not found., terminating` 
+
+If this happens, create a database location for your user using the following command:
+
+        sudo mkdir -p /data/db
+        
+then change the ownership of the file as following:
 
 	sudo chown -R $USER /data/db
+	
+Now you should be able to run `mongod`. If you still run into issues try to consult this [Stack Overflow question](http://stackoverflow.com/questions/7948789/mongodb-mongod-complains-that-there-is-no-data-db-folder).
 	 
 ##Starter Project
 
