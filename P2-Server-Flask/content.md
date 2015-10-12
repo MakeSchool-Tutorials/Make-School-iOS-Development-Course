@@ -51,6 +51,10 @@ Once the install completes you need to start the DB with this command:
 
 	mongod
 	 
+mongod may notice that you have not specified a database directory. By default it uses /data/db. Because this folder may be missing, mongod may output the following error when run: `Data directory /data/db not found., terminating` if this happens, create a database location for your user using the following command.
+
+	sudo chown -R $USER /data/db
+	 
 ##Starter Project
 
 We will be using a bunch of libraries to speed up development. While you can configure your project from scratch, I'd recommend starting with the starter project that has all of the dependencies defined and comes with a basic skeleton for your first web service.
