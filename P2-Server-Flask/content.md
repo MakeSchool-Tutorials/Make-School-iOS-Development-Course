@@ -74,7 +74,7 @@ Now you should be able to run `mongod`. If you still run into issues try to cons
 
 We will be using a bunch of libraries to speed up development. While you can configure your project from scratch, I'd recommend starting with the starter project that has all of the dependencies defined and comes with a basic skeleton for your first web service.
 
-Start by [downloading the starter project](https://github.com/MakeSchool/Flask-Starter-Project/archive/master.zip). Unzip the folder and navigate to the root folder of the project.
+You should have access to the starter project through GitHub Classroom.
 
 ###Creating and Activating a Virtual Environment
 
