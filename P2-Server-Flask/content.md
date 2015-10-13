@@ -319,11 +319,18 @@ Thinking of these three steps should be a helpful guide for writing your own tes
 
 With this basic setup working it's now your turn to extend this server to support all features that we need for our Trip Planner project:
 
-- Endpoint for creating a trip with waypoints
-- Endpoint for updating a trip with waypoints
-- Endpoint for deleting a trip with waypoints
-- Endpoint for retrieving a specific trip via its ID
-- Endpoint for retrieving all trips for a specific user
+- API for creating a trip with waypoints
+- API for updating a trip with waypoints
+- API for deleting a trip with waypoints
+- API for retrieving a specific trip via its ID
+- API for retrieving all trips for a specific user
+
+You should define this API with two main resources: 
+
+- `yourserver.com/trips`
+- `yourserver.com/users` 
+
+On these resources you should use the appropriate HTTP verbs (`GET`, `POST`, `PUT`, `DELETE`) to implement creating/updating/deleting trips and signing up / verifying users.
 
 In the Trip Planner app all trips should be user specific. This means that a user can only see/modify trips that they created themselves. Therefor we will need to implement an authorization and authentication system for our backend.
 
