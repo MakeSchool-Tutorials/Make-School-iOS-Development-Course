@@ -52,9 +52,15 @@ Once you have defined these methods you can use the `@requires_auth` annotation 
 	          …
 	        else:
 	          …
+	          
+###What does this starter code do?
+
+The `requires_auth` method defines a wrapper that will check the authentication header of an incoming request. It first reads the authentication header by accessing `request.authorization`. Then it checks if the header was provided. If the header was provided it passes the details to the `check_auth` method. The `check_auth` method needs to decide whether or not the user has provided valid credentials. **We've provided you with a dummy implementation, you'll need to replace this implementation with one that accesses the DB and checks the password**.
+If the authentication was successful the wrapped function will be called as usual. If the authentication was not successful we generate a `401` response to show the client that the username or password were incorrect.
 
 ##Using the Bcrypt library
 
+As mentioned throughout the lecture you will need to use an encryption library to encrypt paasswords before they are stored.
 As encryption library you should be using `bcrypt` ([documentation](https://pypi.python.org/pypi/bcrypt/1.1.0)). Like any other python library you can install it through `pip3`. 
 
 ###Generating an Encrypted Password
@@ -87,5 +93,13 @@ All you need to do is provide the unencrypted and the encrypted password to `has
 
 #Next Steps
 
-Once you've implemented the modified API described at the beginning of this step the server is complete. From now on we'll focus on implementing the iOS client for Trip Planner.
+1. Implement your custom `check_auth` method that actually uses the DB to compare encrypted passwords
+2. Create a `User` resource and endpoint that allows the client to sign up new users and test username and password of existing users (if you're unclear about how to structure this, come and ask :) )
+3. Make your API secure by implementing the requirements stated at the beginning of this step:
+	- Provide an endpoint that allows a client to register a new user by providing username and password
+	- Provide an endpoint that allows a user to verify credentials (username and password). It should return a status code of 200 (OK) for correct credentials and status code 401 (Unauthorized) for incorrect credentials
+	- The endpoint that allows clients to create trips should require authentication. The backend should associate the created trip with the authenticated user
+	- The endpoint that allows clients to retrieve trips should require authentication. It should only return trips that belong to the authenticated user
+
+Once you've implemented the modified API  the server is complete. From now on we'll focus on implementing the iOS client for Trip Planner.
 
