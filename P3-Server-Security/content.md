@@ -24,7 +24,34 @@ Remember that it's preferred that you write tests for these new features **befor
 
 ##Basic Auth in Flask
 
-This [brief tutorial](http://flask.pocoo.org/snippets/8/) describes how to implement Basic Authentication with flask. It uses a very simple example for the authentication method. Instead of using a hardcoded username and password you should compare the provided credentials with the ones that you have stored in your database.
+To implement Basic Auth in flask you should use this starter code:
+
+	def check_auth(username, password):
+	    return username == 'admin' and password == 'secret'
+	
+	def requires_auth(f):
+	    @wraps(f)
+	    def decorated(*args, **kwargs):
+	        auth = request.authorization
+	        if not auth or not check_auth(auth.username, auth.password):
+	            message = {'error': 'Basic Auth Required.'}
+	            resp = jsonify(message)
+	            resp.status_code = 401
+	            return resp
+	
+	        return f(*args, **kwargs)
+	    return decorated
+	    
+Once you have defined these methods you can use the `@requires_auth` annotation to wrap API methods that require authentication, e.g. like this:
+
+	class Trip(Resource):
+	
+	    @requires_auth
+	    def get(self, trip_id=None):
+	        if trip_id is None:
+	          …
+	        else:
+	          …
 
 ##Using the Bcrypt library
 
