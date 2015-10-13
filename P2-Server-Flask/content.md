@@ -212,9 +212,9 @@ The next important aspect of the starter project code is the mapping between rou
 
 	api.add_resource(MyObject, '/myobject/','/myobject/<string:myobject_id>')
 	
-The first parameter is the resource which we want ot map to a specific URL. Next, we have a collection of different URLs that map to that resource. For this application there are two different ways to call the *myobject* endpoint. The first one is */myobject/*, without a specific object id. This endpoint is used to create new instances. The second endpoint takes an object id, e.g. */myobject/2*. This endpoint is used to retrieve a specific object. 
+The first parameter is the resource which we want ot map to a specific URL. Next, we have a collection of different URLs that map to that resource. For this application there are two different ways to call the *myobject* endpoint. The first one is */myobject/*, without a specific object id. This endpoint is used to operate on the collection of `myobjects`. The second endpoint takes an object id, e.g. */myobject/2*. This endpoint is used to operate on a specific `myobject`.
 
-With this additional line of setup, our server will now know which server methods to call when a specific URL is requested by the client.
+With this additional line of setup, our server will now know which class to call when a specific URL is requested by the client. Additionally the HTTP verb of the request (`GET`, `POST`, etc.) will be used to determine which method on that class should be called.
 
 ###Additional Configuration
 
