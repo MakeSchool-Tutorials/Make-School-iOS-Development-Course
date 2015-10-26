@@ -50,8 +50,6 @@ The Trip Detail Screen shows the waypoints for a selected Trip within a Table Vi
 
 This screen should support deleting waypoints by using the iOS swipe-to-delete feature. Additionally you can add an *Edit* that puts the table view into edit mode; this provides the user with another way of deleting elements.
 
-The circular image on this screen is another optional feature. You can implement it by using the Google Places API to download an image from one of your waypoint locations.
-
 ###Add Waypoint Screen
 
 This screen allows the user to search for waypoints. It displays the search results in a table view. The user can select an entry. The selected entry will be highlighted on the map. By using the *save* button 
