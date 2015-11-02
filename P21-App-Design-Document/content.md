@@ -15,9 +15,9 @@ Use [this link](https://classroom.github.com/assignment-invitations/0818587db164
 
 In the repository, you will find a document called ADD.md.
 
-Create five main sections (click 'h3' or 'h2' before typing section): Objective, Audience, Experience, Technical, and MVP Milestones.
+There are five main sections: Objective, Audience, Experience, Technical, and MVP Milestones.
 
-Inside of Technical, create four subsections (use a smaller header for this one): External Services, Screens, View/View Controllers/Classes, Data Models.
+Inside of Technical, there are four subsections: External Services, Screens, View/View Controllers/Classes, Data Models.
 
 Inside of MVP Milestones list each remaining week of development.
 
