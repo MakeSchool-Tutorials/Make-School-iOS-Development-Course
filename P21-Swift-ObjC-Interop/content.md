@@ -1,5 +1,5 @@
 ---
-title: "Swift Objectiv-C Interop"
+title: "Swift Objective-C Interop"
 slug: swift-objc-interop
 ---
 
