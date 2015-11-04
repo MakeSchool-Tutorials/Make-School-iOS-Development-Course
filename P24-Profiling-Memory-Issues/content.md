@@ -1,6 +1,6 @@
 ---
 title: "Profiling Memory Issues on iOS"
-slug: memory-management-ios
+slug: profiling-memory-issues-ios
 ---
 
 #Video Lecture
