@@ -34,11 +34,11 @@ If python 3 is not installed you should install it via homebrew:
 	 brew update
 	 brew install python3
 	 
-If you run into an issue while executing `brew update` and you're using Max OS X El Capitan you should run the following command:
+If you run into an issue while executing `brew update` and you're using Mac OS X El Capitan you should run the following command:
 
 	sudo chown -R $(whoami):admin /usr/local
 	
-If you're still having trouble you should [check out this post](https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/El_Capitan_and_Homebrew.md).
+If you're still having trouble you should [check out this post](http://apple.stackexchange.com/questions/208944/upgrading-brew-in-el-capitan).
 	 
 ##Installing & Running MongoDB
 
